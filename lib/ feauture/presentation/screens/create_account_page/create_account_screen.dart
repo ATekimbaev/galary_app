@@ -28,43 +28,47 @@ class _CreateAccountState extends State<CreateAccount> {
           style: AppFonts.w400s15,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 14,
-            ),
-            InputWidget(controller: userNameController, hintText: 'Username*'),
-            const SizedBox(
-              height: 10,
-            ),
-            InputWidget(controller: birthDayController, hintText: 'Birthday'),
-            const SizedBox(
-              height: 10,
-            ),
-            InputWidget(controller: emailController, hintText: 'E-mail*'),
-            const SizedBox(
-              height: 10,
-            ),
-            InputWidget(controller: passwoordController, hintText: 'Password*'),
-            const SizedBox(
-              height: 10,
-            ),
-            InputWidget(
-                controller: confrimPasswordController,
-                hintText: 'Confirm password*'),
-            const SizedBox(
-              height: 40,
-            ),
-            AppButton(
-                func: () {},
-                text: Text(
-                  'Create account',
-                  style: AppFonts.w400s15.copyWith(color: Colors.white),
-                ),
-                color: Colors.black)
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 14,
+              ),
+              InputWidget(
+                  controller: userNameController, hintText: 'Username*'),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(controller: birthDayController, hintText: 'Birthday'),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(controller: emailController, hintText: 'E-mail*'),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(
+                  controller: passwoordController, hintText: 'Password*'),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(
+                  controller: confrimPasswordController,
+                  hintText: 'Confirm password*'),
+              const SizedBox(
+                height: 40,
+              ),
+              AppButton(
+                  func: () {},
+                  text: Text(
+                    'Create account',
+                    style: AppFonts.w400s15.copyWith(color: Colors.white),
+                  ),
+                  color: Colors.black)
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallary_app/%20feauture/data/dio_settings.dart';
 import 'package:gallary_app/%20feauture/domain/repositories/login_repo.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
@@ -51,61 +52,67 @@ class _HaveAccountState extends State<HaveAccount> {
             const SizedBox(
               height: 40,
             ),
-            BlocProvider.value(
-              value: HaveAccountBloc(repo: LoginRepo()),
-              child: BlocConsumer<HaveAccountBloc, HaveAccountState>(
-                listener: (context, state) {
-                  if (state is LoginSuccesState) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                  }
-                },
-                builder: (context, state) {
-                  return AppButton(
-                      func: () {
-                        BlocProvider.of<HaveAccountBloc>(context).add(
-                            LigInEvent(
-                                email: emailController.text,
-                                password: passwordController.text));
-                      },
-                      text: Text(
-                        'Log In',
-                        style: AppFonts.w400s15.copyWith(color: Colors.white),
-                      ),
-                      color: Colors.black);
-                },
+            RepositoryProvider<LoginRepo>.value(
+              value: RepositoryProvider.of<LoginRepo>(context),
+              child: BlocProvider<HaveAccountBloc>.value(
+                value: BlocProvider.of<HaveAccountBloc>(context),
+                child: BlocConsumer<HaveAccountBloc, HaveAccountState>(
+                  listener: (context, state) {
+                    if (state is LoginSuccesState) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
+                    }
+                  },
+                  builder: (context, state) {
+                    return AppButton(
+                        func: () {
+                          BlocProvider.of<HaveAccountBloc>(context).add(
+                              LigInEvent(
+                                  email: emailController.text,
+                                  password: passwordController.text));
+                        },
+                        text: Text(
+                          'Log In',
+                          style: AppFonts.w400s15.copyWith(color: Colors.white),
+                        ),
+                        color: Colors.black);
+                  },
+                ),
               ),
             ),
             const SizedBox(
               height: 26,
             ),
-            BlocProvider.value(
-              value: HaveAccountBloc(repo: LoginRepo()),
-              child: BlocConsumer<HaveAccountBloc, HaveAccountState>(
-                listener: (context, state) {
-                  if (state is CreateAccountState) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateAccount(),
+            RepositoryProvider<LoginRepo>.value(
+              value: RepositoryProvider.of<LoginRepo>(context),
+              child: BlocProvider<HaveAccountBloc>.value(
+                value: BlocProvider.of<HaveAccountBloc>(context),
+                child: BlocConsumer<HaveAccountBloc, HaveAccountState>(
+                  listener: (context, state) {
+                    if (state is CreateAccountState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CreateAccount(),
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return TextButton(
+                      onPressed: () {
+                        BlocProvider.of<HaveAccountBloc>(context)
+                            .add(CreateAccountEvent());
+                      },
+                      child: Text(
+                        'Create account',
+                        style: AppFonts.w400s15.copyWith(color: AppColors.pink),
                       ),
                     );
-                  }
-                },
-                builder: (context, state) {
-                  return TextButton(
-                    onPressed: () {
-                      BlocProvider.of<HaveAccountBloc>(context)
-                          .add(CreateAccountEvent());
-                    },
-                    child: Text(
-                      'Create account',
-                      style: AppFonts.w400s15.copyWith(color: AppColors.pink),
-                    ),
-                  );
-                },
+                  },
+                ),
               ),
             ),
           ],

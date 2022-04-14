@@ -13,14 +13,7 @@ class HaveAccountBloc extends Bloc<HaveAccountEvent, HaveAccountState> {
 
   Future<void> _logIn(event, Emitter<HaveAccountState> emit) async {
     emit(LogInState());
-    final result =
-        await repo.logIn(emali: event.email, password: event.password);
 
-    if (result == true) {
-      emit(LoginSuccesState());
-    } else {
-      emit(LoginErrorState());
-    }
   }
 }
 
