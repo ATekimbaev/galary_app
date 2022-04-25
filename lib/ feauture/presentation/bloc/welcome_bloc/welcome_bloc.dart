@@ -1,26 +1,26 @@
 import 'package:bloc/bloc.dart';
 
 class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
-  WelcomeBloc() : super(HaveAccountState()) {
-    on<CreateAccountEvent>(_createAccount);
-    on<HaveAccountEvent>(_haveAccount);
+  WelcomeBloc() : super(WelcomeHaveAccountState()) {
+    on<WelcomeCreateAccountEvent>(_createAccount);
+    on<WelcomeHaveAccountEvent>(_haveAccount);
    
   }
   Future<void> _createAccount(event, Emitter<WelcomeState> emit)async{
-    emit(CreateAccountState());
+    emit(WelcomeCreateAccountState());
   }
   Future<void> _haveAccount(event, Emitter<WelcomeState> emit)async{
-    emit(HaveAccountState());
+    emit(WelcomeHaveAccountState());
   }
 }
 
 abstract class WelcomeEvent {}
 
-class CreateAccountEvent extends WelcomeEvent {}
+class WelcomeCreateAccountEvent extends WelcomeEvent {}
 
-class HaveAccountEvent extends WelcomeEvent {}
+class WelcomeHaveAccountEvent extends WelcomeEvent {}
 
 abstract class WelcomeState {}
 
-class HaveAccountState extends WelcomeState {}
-class CreateAccountState extends WelcomeState {}
+class WelcomeHaveAccountState extends WelcomeState {}
+class WelcomeCreateAccountState extends WelcomeState {}

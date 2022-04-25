@@ -4,7 +4,7 @@ import 'package:gallary_app/%20feauture/data/dio_settings.dart';
 import 'package:gallary_app/%20feauture/domain/repositories/login_repo.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
-import 'package:gallary_app/%20feauture/presentation/screens/home_page/home_page.dart';
+import 'package:gallary_app/%20feauture/presentation/screens/main_screens/feed_screen/feed_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/colors.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';

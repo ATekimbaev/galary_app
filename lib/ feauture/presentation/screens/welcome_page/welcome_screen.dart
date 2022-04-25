@@ -4,8 +4,9 @@ import 'package:gallary_app/%20feauture/presentation/bloc/welcome_bloc/welcome_b
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';
-
 import '../have_account_page/have_account_page.dart';
+
+
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 BlocConsumer<WelcomeBloc, WelcomeState>(
                   listener: (context, state) {
-                    if (state is CreateAccountState) {
+                    if (state is WelcomeCreateAccountState) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -51,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                   builder: (context, state) {
                     return AppButton(
                         func: () => BlocProvider.of<WelcomeBloc>(context)
-                            .add(CreateAccountEvent()),
+                            .add(WelcomeCreateAccountEvent()),
                         text: Text(
                           'Create an account',
                           style: AppFonts.w400s15.copyWith(
@@ -66,7 +67,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 BlocConsumer<WelcomeBloc, WelcomeState>(
                   listener: (context, state) {
-                    if (state is HaveAccountState) {
+                    if (state is WelcomeHaveAccountState) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -78,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
                     return AppButton(
                         func: () {
                           BlocProvider.of<WelcomeBloc>(context)
-                              .add(HaveAccountEvent());
+                              .add(WelcomeHaveAccountEvent());
                         },
                         text: const Text('I already have an account',
                             style: AppFonts.w400s15),

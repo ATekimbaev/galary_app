@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallary_app/%20feauture/presentation/screens/main_screens/bottom_navigation_bar/bottom_bar.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/colors.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';
@@ -61,12 +62,19 @@ class _CreateAccountState extends State<CreateAccount> {
                 height: 40,
               ),
               AppButton(
-                  func: () {},
+                  func: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BottomBar(),
+                      ),
+                    );
+                  },
                   text: Text(
                     'Create account',
                     style: AppFonts.w400s15.copyWith(color: Colors.white),
                   ),
-                  color: Colors.black)
+                  color: Colors.black),
             ],
           ),
         ),
