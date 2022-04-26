@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallary_app/%20feauture/data/dio_settings.dart';
 import 'package:gallary_app/%20feauture/domain/repositories/create_user_repo.dart';
+import 'package:gallary_app/%20feauture/domain/repositories/photo_repo.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/create_account/create_account_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
+import 'package:gallary_app/%20feauture/presentation/bloc/photo_bloc/photo_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/welcome_page/welcome_screen.dart';
 import ' feauture/domain/repositories/login_repo.dart';
@@ -43,16 +45,20 @@ class InitWidget extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => DioSettings(),
+          create: (context) => DioSettings(),
         ),
         RepositoryProvider(
-          create: (_) =>
+          create: (context) =>
               LoginRepo(dio: RepositoryProvider.of<DioSettings>(context).dio),
         ),
         RepositoryProvider(
-          create: (_) => CreateUserRepo(
+          create: (context) => CreateUserRepo(
               dio: RepositoryProvider.of<DioSettings>(context).dio),
         ),
+        RepositoryProvider(
+          create: (context) =>
+              PhotoRepo(dio: RepositoryProvider.of<DioSettings>(context).dio),
+        )
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider<WelcomeBloc>(
@@ -67,6 +73,11 @@ class InitWidget extends StatelessWidget {
           create: (context) => CreateAccountBloc(
             repo: RepositoryProvider.of<CreateUserRepo>(context),
           ),
+        ),
+        BlocProvider(
+          create: (context) => PhotoBloc(
+            repo: RepositoryProvider.of<PhotoRepo>(context),
+          )..add(PhotoLoadEvent()),
         )
       ], child: child),
     );

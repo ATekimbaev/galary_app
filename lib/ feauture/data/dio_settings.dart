@@ -8,7 +8,7 @@ class DioSettings {
 
   Dio dio = Dio(
      BaseOptions(
-        baseUrl: 'http://gallery.dev.webant.ru/api',
+        baseUrl: 'http://gallery.dev.webant.ru/api/',
         contentType: 'application/json',
         headers: {'Accept': 'application/json'},
         connectTimeout: 20000,

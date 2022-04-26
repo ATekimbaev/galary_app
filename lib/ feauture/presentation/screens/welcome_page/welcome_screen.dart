@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';
 import '../have_account_page/have_account_page.dart';
-
-
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -71,7 +70,10 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HaveAccount()),
+                            builder: (_) => BlocProvider<HaveAccountBloc>.value(
+                                  value: context.read<HaveAccountBloc>(),
+                                  child: const HaveAccount(),
+                                )),
                       );
                     }
                   },
