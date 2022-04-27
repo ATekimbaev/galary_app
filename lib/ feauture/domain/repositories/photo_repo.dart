@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:gallary_app/%20feauture/data/models/photo_models/photo_data.dart';
 import 'package:gallary_app/%20feauture/data/models/photo_models/photo_models.dart';
 
 class PhotoRepo {
@@ -7,15 +8,11 @@ class PhotoRepo {
     required this.dio,
   });
 
-  Future<List<PhotoModels>> getPhot() async {
+  Future<List<PhotoModel>> getPhot() async {
     final result = await dio.get('photos');
 
     final jsonList = result.data;
-    List<PhotoModels> photos = [];
-
-    for (var photos in jsonList) {
-      photos.add(PhotoModels.fromJson(photos));
-    }
+    final List<PhotoModel> photos = DataModel.fromJson(jsonList).data ?? [];
 
     return photos;
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
+import 'package:gallary_app/%20feauture/presentation/bloc/photo_bloc/photo_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/welcome_bloc/welcome_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
@@ -38,20 +39,23 @@ class WelcomeScreen extends StatelessWidget {
                   height: 60,
                 ),
                 BlocConsumer<WelcomeBloc, WelcomeState>(
-                  listener: (context, state) {
+                  listener: (_, state) {
                     if (state is WelcomeCreateAccountState) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => const CreateAccount()),
+                          builder: ((_) => BlocProvider.value(
+                                value: context.read<PhotoBloc>(),
+                                child: const CreateAccount(),
+                              )),
                         ),
                       );
                     }
                   },
                   builder: (context, state) {
                     return AppButton(
-                        func: () => BlocProvider.of<WelcomeBloc>(context)
-                            .add(WelcomeCreateAccountEvent()),
+                        func: () =>
+                            BlocProvider.of<WelcomeBloc>(context).add(WelcomeCreateAccountEvent()),
                         text: Text(
                           'Create an account',
                           style: AppFonts.w400s15.copyWith(
@@ -65,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
                   height: 10,
                 ),
                 BlocConsumer<WelcomeBloc, WelcomeState>(
-                  listener: (context, state) {
+                  listener: (_, state) {
                     if (state is WelcomeHaveAccountState) {
                       Navigator.push(
                         context,
@@ -80,11 +84,9 @@ class WelcomeScreen extends StatelessWidget {
                   builder: (context, state) {
                     return AppButton(
                         func: () {
-                          BlocProvider.of<WelcomeBloc>(context)
-                              .add(WelcomeHaveAccountEvent());
+                          BlocProvider.of<WelcomeBloc>(context).add(WelcomeHaveAccountEvent());
                         },
-                        text: const Text('I already have an account',
-                            style: AppFonts.w400s15),
+                        text: const Text('I already have an account', style: AppFonts.w400s15),
                         color: Colors.white);
                   },
                 ),

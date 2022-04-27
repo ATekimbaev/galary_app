@@ -8,7 +8,8 @@ class PhotoInitial extends PhotoState {}
 class PhotoLoading extends PhotoState {}
 
 class PhotoSuccses extends PhotoState {
-  final List<PhotoModels> photos;
+  final List<PhotoModel> photos;
+
   PhotoSuccses({
     required this.photos,
   });

@@ -1,22 +1,26 @@
 import 'package:gallary_app/%20feauture/data/models/photo_models/photo_data.dart';
 
-class PhotoModels {
+class DataModel {
   int? totalItems;
   int? itemsPerPage;
   int? countOfPages;
-  List<Data>? data;
+  List<PhotoModel>? data;
 
-  PhotoModels(
-      {this.totalItems, this.itemsPerPage, this.countOfPages, this.data});
+  DataModel({
+    this.totalItems,
+    this.itemsPerPage,
+    this.countOfPages,
+    this.data,
+  });
 
-  PhotoModels.fromJson(Map<String, dynamic> json) {
+  DataModel.fromJson(Map<String, dynamic> json) {
     totalItems = json['totalItems'];
     itemsPerPage = json['itemsPerPage'];
     countOfPages = json['countOfPages'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <PhotoModel>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(PhotoModel.fromJson(v));
       });
     }
   }
@@ -32,6 +36,3 @@ class PhotoModels {
     return data;
   }
 }
-
-
-

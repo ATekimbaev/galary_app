@@ -1,10 +1,10 @@
-class Image {
+class ImageModel {
   int? id;
   String? name;
 
-  Image({this.id, this.name});
+  ImageModel({this.id, this.name});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  ImageModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

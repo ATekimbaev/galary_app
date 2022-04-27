@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallary_app/%20feauture/data/dio_settings.dart';
+import 'package:gallary_app/%20feauture/domain/repositories/photo_repo.dart';
 import 'package:gallary_app/%20feauture/presentation/bloc/have_account/have_account_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/create_account_page/create_account_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/main_screens/feed_screen/feed_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/colors.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';
+import '../../bloc/photo_bloc/photo_bloc.dart';
 import '../../widgets/input_widget.dart';
 
 class HaveAccount extends StatefulWidget {
@@ -18,6 +21,7 @@ class HaveAccount extends StatefulWidget {
 class _HaveAccountState extends State<HaveAccount> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,21 +57,31 @@ class _HaveAccountState extends State<HaveAccount> {
             BlocProvider<HaveAccountBloc>.value(
               value: BlocProvider.of<HaveAccountBloc>(context),
               child: BlocConsumer<HaveAccountBloc, HaveAccountState>(
-                listener: (context, state) {
+                listener: (_, state) {
                   if (state is LoginSuccesState) {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (_) => PhotoBloc(
+                                  repo: PhotoRepo(
+                                    dio: DioSettings().dio,
+                                  ),
+                                )..add(PhotoLoadEvent()),
+                              ),
+                            ],
+                            child: const HomePage(),
+                          )),
+                    );
                   }
                 },
                 builder: (context, state) {
                   return AppButton(
                       func: () {
-                        BlocProvider.of<HaveAccountBloc>(context).add(
-                            LigInEvent(
-                                email: emailController.text,
-                                password: passwordController.text));
+                        BlocProvider.of<HaveAccountBloc>(context).add(LigInEvent(
+                            email: emailController.text, password: passwordController.text));
                       },
                       text: Text(
                         'Log In',
@@ -96,8 +110,7 @@ class _HaveAccountState extends State<HaveAccount> {
                 builder: (context, state) {
                   return TextButton(
                     onPressed: () {
-                      BlocProvider.of<HaveAccountBloc>(context)
-                          .add(CreateAccountEvent());
+                      BlocProvider.of<HaveAccountBloc>(context).add(CreateAccountEvent());
                     },
                     child: Text(
                       'Create account',
