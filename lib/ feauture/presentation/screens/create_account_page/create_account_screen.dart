@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallary_app/%20feauture/presentation/bloc/photo_bloc/photo_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/main_screens/bottom_navigation_bar/bottom_bar.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/colors.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/app_button.dart';
 import 'package:gallary_app/%20feauture/presentation/widgets/input_widget.dart';
+
+import '../../../data/dio_settings.dart';
+import '../../../domain/repositories/photo_repo.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -18,6 +23,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwoordController = TextEditingController();
   TextEditingController confrimPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +43,7 @@ class _CreateAccountState extends State<CreateAccount> {
               const SizedBox(
                 height: 14,
               ),
-              InputWidget(
-                  controller: userNameController, hintText: 'Username*'),
+              InputWidget(controller: userNameController, hintText: 'Username*'),
               const SizedBox(
                 height: 10,
               ),
@@ -50,14 +55,11 @@ class _CreateAccountState extends State<CreateAccount> {
               const SizedBox(
                 height: 10,
               ),
-              InputWidget(
-                  controller: passwoordController, hintText: 'Password*'),
+              InputWidget(controller: passwoordController, hintText: 'Password*'),
               const SizedBox(
                 height: 10,
               ),
-              InputWidget(
-                  controller: confrimPasswordController,
-                  hintText: 'Confirm password*'),
+              InputWidget(controller: confrimPasswordController, hintText: 'Confirm password*'),
               const SizedBox(
                 height: 40,
               ),
@@ -66,7 +68,10 @@ class _CreateAccountState extends State<CreateAccount> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BottomBar(),
+                        builder: (_) => BlocProvider<PhotoBloc>.value(
+                          value: context.read<PhotoBloc>(),
+                          child: const BottomBar(),
+                        ),
                       ),
                     );
                   },
@@ -81,4 +86,5 @@ class _CreateAccountState extends State<CreateAccount> {
       ),
     );
   }
+
 }

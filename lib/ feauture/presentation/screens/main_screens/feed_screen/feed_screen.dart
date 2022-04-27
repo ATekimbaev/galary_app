@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallary_app/%20feauture/presentation/bloc/photo_bloc/photo_bloc.dart';
 import 'package:gallary_app/%20feauture/presentation/screens/main_screens/feed_screen/tab_new_screen.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/colors.dart';
 import 'package:gallary_app/%20feauture/presentation/theme/fonts.dart';

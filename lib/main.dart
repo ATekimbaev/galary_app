@@ -48,12 +48,10 @@ class InitWidget extends StatelessWidget {
           create: (context) => DioSettings(),
         ),
         RepositoryProvider(
-          create: (context) =>
-              LoginRepo(dio: RepositoryProvider.of<DioSettings>(context).dio),
+          create: (context) => LoginRepo(dio: RepositoryProvider.of<DioSettings>(context).dio),
         ),
         RepositoryProvider(
-          create: (context) => CreateUserRepo(
-              dio: RepositoryProvider.of<DioSettings>(context).dio),
+          create: (context) => CreateUserRepo(dio: RepositoryProvider.of<DioSettings>(context).dio),
         ),
         RepositoryProvider(
           create: (context) =>
@@ -65,20 +63,20 @@ class InitWidget extends StatelessWidget {
           create: (context) => WelcomeBloc(),
         ),
         BlocProvider<HaveAccountBloc>(
-          create: (context) => HaveAccountBloc(
+          create: (_) => HaveAccountBloc(
             repo: RepositoryProvider.of<LoginRepo>(context),
           ),
         ),
         BlocProvider<CreateAccountBloc>(
-          create: (context) => CreateAccountBloc(
+          create: (_) => CreateAccountBloc(
             repo: RepositoryProvider.of<CreateUserRepo>(context),
           ),
         ),
         BlocProvider(
           create: (context) => PhotoBloc(
-            repo: RepositoryProvider.of<PhotoRepo>(context),
+            repo: context.read<PhotoRepo>(),
           )..add(PhotoLoadEvent()),
-        )
+        ),
       ], child: child),
     );
   }
